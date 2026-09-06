@@ -11,6 +11,8 @@ RUN apk add --no-cache \
     firefox-esr \
     novnc \
     websockify \
+    font-misc-misc \
+    terminus-font \
     bash \
     supervisor
 
