@@ -1,7 +1,6 @@
 #!/bin/bash
 
 echo "[0/6] Creating 1GB Swap Space to prevent crashes..."
-# ساخت یک فایل ۱ گیگابایتی برای حافظه مجازی
 fallocate -l 1G /swapfile
 chmod 600 /swapfile
 mkswap /swapfile
@@ -20,7 +19,7 @@ cat << 'EOF' > /root/.config/openbox/menu.xml
 <openbox_menu>
 <menu id="root-menu" label="Openbox">
   <item label="Terminal"><action name="Execute"><execute>xterm -bg black -fg white</execute></action></item>
-  <item label="Midori Browser"><action name="Execute"><execute>midori</execute></action></item>
+  <item label="Firefox Browser"><action name="Execute"><execute>firefox-esr</execute></action></item>
   <separator />
   <item label="Exit"><action name="Exit"/></item>
 </menu>
