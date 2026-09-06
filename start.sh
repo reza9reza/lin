@@ -1,45 +1,34 @@
 #!/bin/bash
 
-echo "[0/6] Creating 4GB Swap Space securely..."
-# پاک کردن فایل قبلی در صورت وجود
-rm -f /swapfile
-# ساخت ۴ گیگابایت فایل swap با دستور dd (کاملا امن برای Railway)
-dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress
-chmod 600 /swapfile
-mkswap /swapfile
-swapon /swapfile
-
 rm -f /tmp/.X0-lock /tmp/.X11-unix/X0
 
-echo "[1/6] Starting Xvfb..."
+echo "[1/5] Starting Xvfb..."
 Xvfb :0 -screen 0 1280x720x24 -ac +extension RANDR &
 sleep 2
 
-echo "[2/6] Creating Openbox Menu..."
+echo "[2/5] Creating Openbox Menu..."
 mkdir -p /root/.config/openbox
 cat << 'EOF' > /root/.config/openbox/menu.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <openbox_menu>
 <menu id="root-menu" label="Openbox">
   <item label="Terminal"><action name="Execute"><execute>xterm -bg black -fg white</execute></action></item>
-  <item label="Firefox Browser"><action name="Execute"><execute>firefox-esr</execute></action></item>
+  <item label="Dillo Browser"><action name="Execute"><execute>dillo</execute></action></item>
   <separator />
   <item label="Exit"><action name="Exit"/></item>
 </menu>
 </openbox_menu>
 EOF
 
-echo "[3/6] Starting Openbox..."
+echo "[3/5] Starting Openbox..."
 DISPLAY=:0 openbox-session &
 sleep 1
 
-echo "[4/6] Setting Background..."
+echo "[4/5] Setting Background & Terminal..."
 DISPLAY=:0 xsetroot -solid grey &
-
-echo "[5/6] Starting xterm..."
 DISPLAY=:0 xterm -bg black -fg white &
 
-echo "[6/6] Starting x11vnc & websockify..."
+echo "[5/5] Starting x11vnc & websockify..."
 x11vnc -display :0 -forever -nopw -rfbport 5900 -bg -o /var/log/x11vnc.log
 sleep 2
 exec websockify --web=/usr/share/novnc/ 0.0.0.0:${PORT:-8080} localhost:5900 --heartbeat=30
