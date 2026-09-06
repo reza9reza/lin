@@ -1,7 +1,10 @@
 #!/bin/bash
 
-echo "[0/6] Creating 1GB Swap Space to prevent crashes..."
-fallocate -l 1G /swapfile
+echo "[0/6] Creating 4GB Swap Space securely..."
+# پاک کردن فایل قبلی در صورت وجود
+rm -f /swapfile
+# ساخت ۴ گیگابایت فایل swap با دستور dd (کاملا امن برای Railway)
+dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress
 chmod 600 /swapfile
 mkswap /swapfile
 swapon /swapfile
