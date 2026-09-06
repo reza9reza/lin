@@ -5,7 +5,7 @@ RUN apk add --no-cache \
     openbox \
     x11vnc \
     xterm \
-    midori \
+    firefox-esr \
     novnc \
     websockify \
     bash \
