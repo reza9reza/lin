@@ -5,7 +5,7 @@ RUN apk add --no-cache \
     openbox \
     x11vnc \
     xterm \
-    firefox-esr \
+    midori \
     novnc \
     websockify \
     bash \
@@ -13,7 +13,8 @@ RUN apk add --no-cache \
     font-misc-misc \
     terminus-font \
     ttf-dejavu \
-    xsetroot
+    xsetroot \
+    util-linux
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
